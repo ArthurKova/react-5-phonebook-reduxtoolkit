@@ -1,7 +1,7 @@
 {
-  "name": "react-5-phoneboo-rtk",
+  "name": "react-5-phonebook-reduxtoolkit",
   "version": "0.1.0",
-  "homepage": "https://ArthurKova.github.io/react-5-phoneboo-rtk/",
+  "homepage": "react-5-phonebook-reduxtoolkit",
   "private": true,
   "dependencies": {
     "@reduxjs/toolkit": "^1.9.5",

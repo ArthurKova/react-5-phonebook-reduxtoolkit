@@ -1,18 +1,20 @@
 import React from 'react';
 import './ContactList.css';
 import propTypes from 'prop-types';
+import { useDeleteContactMutation } from 'redux/phonebook/phonebookApi';
 
-const ContactList = ({ filtredContacts, removeContact }) => {
+const ContactList = ({ contacts }) => {
+  const [deleteContact] = useDeleteContactMutation();
   return (
     <ul className="page__list">
-      {filtredContacts.map(contact => {
-        const { name, number, id } = contact;
+      {contacts?.map(contact => {
+        const { name, phone, id } = contact;
         return (
           <li key={id} className="page__item">
             <p>
-              {name}: {number}
+              {name}: <br /> {phone}
             </p>
-            <button onClick={() => removeContact(id)} className="page__button">
+            <button onClick={() => deleteContact(id)} className="page__button">
               Delete
             </button>
           </li>
@@ -23,28 +25,7 @@ const ContactList = ({ filtredContacts, removeContact }) => {
 };
 
 ContactList.propTypes = {
-  filtredContacts: propTypes.array.isRequired,
-  // removeContact: propTypes.func.isRequired,
+  filtredContacts: propTypes.array,
 };
 
 export default ContactList;
-
-// const ContactList = ({ filtredContacts, removeContact }) => {
-//   return (
-//     <ul className="page__list">
-//       {filtredContacts.map(contact => (
-//         <li key={contact.id} className="page__item">
-//           <p>
-//             {contact.name}: {contact.number}
-//           </p>
-//           <button
-//             onClick={() => removeContact(contact.id)}
-//             className="page__button"
-//           >
-//             Delete
-//           </button>
-//         </li>
-//       ))}
-//     </ul>
-//   );
-// };

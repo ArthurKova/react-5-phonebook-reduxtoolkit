@@ -1,10 +1,11 @@
 import React, { useState } from 'react';
-import { nanoid } from 'nanoid';
 import './ContactForm.css';
+import { useAddNewContactMutation } from 'redux/phonebook/phonebookApi';
 
-const ContactForm = ({ formSubmit }) => {
+const ContactForm = () => {
   const [name, setName] = useState('');
-  const [number, setNumber] = useState('');
+  const [phone, setPhone] = useState('');
+  const [addNewContact] = useAddNewContactMutation();
 
   const handleInputChange = e => {
     const { value, name } = e.currentTarget;
@@ -12,19 +13,22 @@ const ContactForm = ({ formSubmit }) => {
       case 'name':
         setName(value);
         break;
-      case 'number':
-        setNumber(value);
+      case 'phone':
+        setPhone(value);
         break;
+
+      default:
+        return;
     }
   };
   const inputReset = () => {
     setName('');
-    setNumber('');
+    setPhone('');
   };
 
   const handleSubmit = e => {
     e.preventDefault();
-    formSubmit({ name, number, id: nanoid() });
+    addNewContact({ name, phone });
     inputReset();
   };
 
@@ -49,11 +53,11 @@ const ContactForm = ({ formSubmit }) => {
         <input
           className="phonebook-form__input phonebook-form__input-tel"
           type="tel"
-          name="number"
+          name="phone"
           // pattern="/\+?\d{1,4}?[-.\s]?\(?\d{1,3}?\)?[-.\s]?\d{1,4}[-.\s]?\d{1,4}[-.\s]?\d{1,9}"
           title="Phone number must be digits and can contain spaces, dashes, parentheses and can start with +"
           required
-          value={number}
+          value={phone}
           onChange={handleInputChange}
           placeholder="Your telephone number"
         />
